@@ -1,0 +1,33 @@
+{
+  "name": "movies-explorer-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npx eslint .",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FilDsgn/movies-explorer-api.git"
+  },
+  "keywords": [],
+  "author": "Alexandr Filimonov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FilDsgn/movies-explorer-api/issues"
+  },
+  "homepage": "https://github.com/FilDsgn/movies-explorer-api#readme",
+  "devDependencies": {
+    "eslint": "^8.42.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "nodemon": "^2.0.22"
+  },
+  "dependencies": {
+    "mongoose": "^7.2.4",
+    "validator": "^13.9.0"
+  }
+}
