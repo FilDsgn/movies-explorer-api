@@ -8,6 +8,8 @@ const { PORT = 3000 } = process.env;
 const { errors } = require('celebrate');
 const router = require('./routes/router');
 
+const auth = require('./middlewares/auth');
+
 const app = express();
 
 app.use(cors);
