@@ -9,6 +9,7 @@ const { errors } = require('celebrate');
 const router = require('./routes/router');
 
 const auth = require('./middlewares/auth');
+const handleError = require('./middlewares/handleError');
 
 const app = express();
 
