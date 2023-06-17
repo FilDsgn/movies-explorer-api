@@ -9,7 +9,16 @@ const getUsers = (req, res, next) => {
     .catch(next);
 };
 
-const updateUsers = (req, res, next) => {
+const getUserInfo = (req, res, next) => {
+  const userId = req.user._id;
+
+  User.findById(userId)
+    .orFail(new NotFoundError('Пользователь не найден.'))
+    .then((user) => res.send(user))
+    .catch(next);
+};
+
+const updateUser = (req, res, next) => {
   const { name, email } = req.body;
 
   User.findByIdAndUpdate(
@@ -28,4 +37,4 @@ const updateUsers = (req, res, next) => {
     });
 };
 
-module.exports = { getUsers, updateUsers };
+module.exports = { getUsers, getUserInfo, updateUser };

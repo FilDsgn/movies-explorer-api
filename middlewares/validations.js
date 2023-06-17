@@ -20,7 +20,7 @@ const validationId = (id) => {
   throw new BadRequestError('Передан некорректный ID');
 };
 
-const validationUpdateUsers = celebrate({
+const validationUpdateUser = celebrate({
   body: Joi.object()
     .keys({
       name: Joi.string().required(),
@@ -53,7 +53,7 @@ const validationDeleteMovie = celebrate({
 });
 
 module.exports = {
-  validationUpdateUsers,
+  validationUpdateUser,
   validationCreateMovie,
   validationDeleteMovie,
 };
