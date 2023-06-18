@@ -43,15 +43,16 @@ const updateUser = (req, res, next) => {
 };
 
 const createUser = (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, password, name } = req.body;
 
   bcrypt.hash(password, 10)
     .then((hash) => {
       User.create({
         email,
         password: hash,
+        name,
       })
-        .then(() => res.status(201).send({ email }))
+        .then(() => res.status(201).send({ email, name }))
         .catch((err) => {
           if (err.name === 'ValidationError') {
             return next(new BadRequestError('Переданы некорректные данные при создании пользователя.'));
@@ -73,7 +74,7 @@ const login = (req, res, next) => {
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'jwt-secret', { expiresIn: '7d' });
 
-      res.send(token);
+      res.send({ token });
     })
     .catch(next);
 };

@@ -20,7 +20,6 @@ const createMovie = (req, res, next) => {
     image,
     trailerLink,
     thumbnail,
-    movieId,
     nameRU,
     nameEN,
   } = req.body;
@@ -34,7 +33,7 @@ const createMovie = (req, res, next) => {
     image,
     trailerLink,
     thumbnail,
-    movieId,
+    owner: req.user._id,
     nameRU,
     nameEN,
   })
@@ -49,16 +48,16 @@ const createMovie = (req, res, next) => {
 };
 
 const deleteMovie = (req, res, next) => {
-  const { movieId } = req.body;
+  const { movieId } = req.params;
 
   Movie.findById(movieId)
     .orFail(new NotFoundError('Передан несуществующий ID фильма'))
     .then((movie) => {
-      if (movie.owner._id !== req.user._id) {
+      if (movie.owner.toString() !== req.user._id) {
         throw new ForbiddenError('Фильм добавлен другим пользователем');
       }
 
-      return Movie.deleteOne()
+      return Movie.deleteOne(movie)
         .then(() => {
           res.send({ message: 'Фильм удален' });
         });
