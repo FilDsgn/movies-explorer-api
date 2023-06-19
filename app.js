@@ -1,10 +1,11 @@
-// require('dotenv').config();
+require('dotenv').config();
 
 const express = require('express');
 const mongoose = require('mongoose');
-// const cors = require('cors');
+const helmet = require('helmet');
+const cors = require('cors');
 
-const { PORT = 3000 } = process.env;
+const { PORT, MONGO_URL } = process.env;
 const { errors } = require('celebrate');
 const router = require('./routes/router');
 
@@ -18,7 +19,8 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
 
-// app.use(cors);
+app.use(cors());
+app.use(helmet());
 app.use(express.json());
 app.use(requestLogger);
 
@@ -33,7 +35,7 @@ app.use(errorLogger);
 app.use(errors());
 app.use(handleError);
 
-mongoose.connect('mongodb://localhost:27017/bitfilmsdb');
+mongoose.connect(MONGO_URL);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
